@@ -8,44 +8,25 @@ test.beforeEach(async({page})=>{
     dashboardPage = new DashboardPage(page);
 });
 
-test.describe.parallel("Theme Module", ()=>{
-    test("Switch to Dark", async({page})=>{
-        let result = await dashboardPage.switchTheme("dark")
-        expect(result).toBeTruthy()
-    })
+const themes = ["dark", "light", "cosmic", "corporate"]; 
 
-    test("Switch to Light", async({page})=>{
-        let result = await dashboardPage.switchTheme("light")
-        expect(result).toBeTruthy()
-    })
+test.describe.parallel("Theme Module", () => {
+    for (const theme of themes) {
+        test(`Switch to ${theme}`, async ({ page }) => {
+            const result = await dashboardPage.switchTheme(theme);
+            expect(result).toBeTruthy();
+        });
+    }
+});
 
-    test("Switch to Cosmic", async({page})=>{
-        let result = await dashboardPage.switchTheme("cosmic")
-        expect(result).toBeTruthy()
-    })
+const widgets = ["Light","Roller Shades","Wireless Audio","Coffee Maker"]
 
-    test("Switch to Corporate", async({page})=>{
-        let result = await dashboardPage.switchTheme("corporate")
-        expect(result).toBeTruthy()
-    })
-})
-
-test.describe.parallel("Top Widgets", ()=>{
-    test("Light",async({page})=>{
-        expect(await dashboardPage.clickOnWidget("Light")).toEqual("OFF")
-    });
-    
-    test("Roller Shades",async({page})=>{
-        expect(await dashboardPage.clickOnWidget("Roller Shades")).toEqual("OFF")
-    });
-
-    test("Wireless Audio",async({page})=>{
-        expect(await dashboardPage.clickOnWidget("Wireless Audio")).toEqual("OFF")
-    });
-
-    test("Coffee Maker",async({page})=>{
-        expect(await dashboardPage.clickOnWidget("Coffee Maker")).toEqual("OFF")
-    });
+test.describe.parallel.only("Top Widgets", ()=>{
+    for (const widget of widgets){
+        test(`${widget}`,async({page})=>{
+            expect(await dashboardPage.clickOnWidget(widget)).toEqual("OFF")
+        });
+    }
 });
 
 test.describe.parallel("My Playlist Module", ()=>{
