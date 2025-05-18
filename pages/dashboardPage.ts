@@ -33,11 +33,11 @@ export class DashboardPage {
         return this.playlistModule.locator(".details").locator("h4").textContent()
     }
 
-    /** 
-       * Changes track based on position: 
-       * forward - next track
-       * back - previous track
-    */
+    /**
+     * Function to change to either next or previous track based on position
+     * @param position - Either forward OR back
+     * @returns 
+     */
     async changeTrack(position:string) { 
         return await this.playlistModule.locator('[icon="skip-'+position+'-outline"]').click()
     }
